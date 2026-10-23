@@ -5,15 +5,15 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const track = document.getElementById('marqueeTrack');
-  if (track) {
-    const trackContent = track.innerHTML;
-    track.innerHTML = trackContent + trackContent;
-  }
+  const setupSeamlessTrack = (trackId) => {
+    const track = document.getElementById(trackId);
+    if (!track) return;
 
-  const trackVideos = document.getElementById('marqueeTrackVideos');
-  if (trackVideos) {
-    const videoContent = trackVideos.innerHTML;
-    trackVideos.innerHTML = videoContent + videoContent;
-  }
+    const baseContent = track.innerHTML;
+    // Multiplicar por 4 asegura que el 50% del carril supere 2400px, eliminando cualquier corte o salto visual
+    track.innerHTML = baseContent + baseContent + baseContent + baseContent;
+  };
+
+  setupSeamlessTrack('marqueeTrack');
+  setupSeamlessTrack('marqueeTrackVideos');
 });

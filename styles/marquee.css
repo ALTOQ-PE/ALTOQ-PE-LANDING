@@ -7,7 +7,7 @@
 .providers-section {
   min-height: 100vh;
   box-sizing: border-box;
-  padding: calc(var(--header-height) + 8px) 0 14px 0;
+  padding: calc(var(--header-height) + 4px) 0 8px 0;
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
@@ -22,25 +22,27 @@
 
 .providers-header {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .providers-subtitle {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
-/* Contenedor del Carril */
+/* Contenedor del Carril con padding vertical para evitar recortes de sombra y elevación */
 .marquee-wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
   display: flex;
   user-select: none;
-  /* Gradientes de desvanecimiento en los bordes para transicion suave */
+  padding: 6px 0;
+  margin: -2px 0;
+  /* Gradientes de desvanecimiento en los bordes para transición suave */
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
@@ -48,16 +50,18 @@
 .marquee-track {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   width: max-content;
-  animation: marqueeScroll 32s linear infinite;
+  animation: marqueeScroll 36s linear infinite;
+  will-change: transform;
 }
 
-.marquee-wrapper:hover .marquee-track {
+/* Pausa suave al interactuar con las tarjetas del carril */
+.marquee-track:hover {
   animation-play-state: paused;
 }
 
-/* Animacion continua */
+/* Animacion continua sin saltos */
 @keyframes marqueeScroll {
   from {
     transform: translateX(0);
@@ -75,22 +79,23 @@
   background-color: var(--color-bg);
   border: 1px solid rgba(15, 61, 46, 0.08);
   border-radius: var(--radius-md);
-  padding: 6px 16px;
-  height: 52px;
-  min-width: 125px;
-  transition: all var(--transition-fast);
+  padding: 4px 14px;
+  height: 48px;
+  min-width: 120px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .provider-logo-card:hover {
   background-color: #FFFFFF;
   border-color: var(--color-secondary);
-  box-shadow: 0 8px 20px rgba(15, 61, 46, 0.08);
-  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(15, 61, 46, 0.12);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .provider-logo-img {
-  max-height: 32px;
-  max-width: 95px;
+  max-height: 28px;
+  max-width: 90px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -105,56 +110,113 @@
 
 /* Banner inferior de invitacion B2B para Productores */
 .producer-cta-strip {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 6px;
+  margin-bottom: 6px;
   background: linear-gradient(135deg, rgba(139, 170, 82, 0.12), rgba(15, 61, 46, 0.06));
   border: 1px solid rgba(139, 170, 82, 0.3);
   border-radius: var(--radius-lg);
-  padding: 10px 22px;
+  padding: 8px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
 }
 
 .producer-cta-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .producer-fili-avatar {
-  width: 44px;
+  width: 40px;
   height: auto;
   flex-shrink: 0;
   filter: drop-shadow(0 4px 8px rgba(15, 61, 46, 0.15));
 }
 
 .producer-cta-text h4 {
-  font-size: 0.94rem;
+  font-size: 0.9rem;
   color: var(--color-primary);
   margin-bottom: 2px;
 }
 
 .producer-cta-text p {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--color-text-muted);
+}
+
+/* Encabezado del Carril de Videos / Alfabetización Digital */
+.video-carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  margin-bottom: 4px;
+  padding: 0 4px;
+}
+
+.video-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.video-carousel-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-secondary-dark);
+  background-color: rgba(139, 170, 82, 0.16);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.video-carousel-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.video-youtube-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 61, 46, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.video-youtube-badge:hover {
+  border-color: #FF0000;
+  color: #CC0000;
+  box-shadow: 0 2px 8px rgba(255, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 /* Carril Continuo de Videos y Portadas de Capacitación */
 .marquee-videos-wrapper {
-  margin-top: 2px;
+  margin-top: 0;
+  padding: 6px 0;
 }
 
 .marquee-videos-wrapper .marquee-track {
   gap: 16px;
-  animation: marqueeScroll 36s linear infinite;
+  animation: marqueeScroll 40s linear infinite;
 }
 
 .video-cover-card {
   position: relative;
-  height: 96px;
-  width: 170px;
+  height: 86px;
+  width: 153px;
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(15, 61, 46, 0.12);
@@ -162,11 +224,12 @@
   cursor: pointer;
   flex-shrink: 0;
   background-color: var(--color-primary-dark);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
 .video-cover-card:hover {
   transform: translateY(-2px) scale(1.02);
+  border-color: var(--color-secondary);
   box-shadow: 0 8px 22px rgba(15, 61, 46, 0.22);
 }
 
@@ -188,51 +251,69 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 61, 46, 0.28);
+  background: rgba(15, 61, 46, 0.22);
   transition: background var(--transition-fast);
 }
 
 .video-cover-card:hover .video-play-badge {
-  background: rgba(15, 61, 46, 0.12);
+  background: rgba(15, 61, 46, 0.08);
 }
 
-.video-play-badge svg {
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
-  transition: transform var(--transition-fast);
+.video-play-pill {
+  width: 34px;
+  height: 23px;
+  background-color: #FF0000;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
 }
 
-.video-cover-card:hover .video-play-badge svg {
-  transform: scale(1.2);
+.video-cover-card:hover .video-play-pill {
+  transform: scale(1.15);
+  background-color: #E60000;
+}
+
+.video-play-pill svg {
+  margin-left: 2px;
 }
 
 @media (max-width: 768px) {
   .marquee-track {
-    gap: 16px;
+    gap: 14px;
   }
   
   .provider-logo-card {
-    height: 52px;
-    min-width: 120px;
-    padding: 8px 14px;
+    height: 44px;
+    min-width: 110px;
+    padding: 6px 12px;
   }
   
   .provider-logo-img {
-    max-height: 30px;
-    max-width: 90px;
+    max-height: 24px;
+    max-width: 80px;
   }
   
   .producer-cta-strip {
     flex-direction: column;
     text-align: center;
-    padding: 16px;
+    padding: 14px;
   }
   
   .producer-cta-left {
     flex-direction: column;
   }
 
+  .video-carousel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
   .video-cover-card {
-    height: 90px;
-    width: 160px;
+    height: 80px;
+    width: 142px;
   }
 }
