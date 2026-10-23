@@ -685,12 +685,15 @@
   flex-shrink: 0;
 }
 
-/* Pie de Pagina (Footer) */
+/* Pie de Página (Footer) */
 .footer-main {
   background-color: var(--color-primary-dark);
   color: #FFFFFF;
   padding: 80px 0 36px 0;
   border-top: 4px solid var(--color-secondary);
+  margin-top: auto;
+  position: relative;
+  z-index: 10;
 }
 
 .footer-grid {

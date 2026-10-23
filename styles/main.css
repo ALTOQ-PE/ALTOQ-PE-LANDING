@@ -17,6 +17,7 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
 }
 
 body {
@@ -26,6 +27,13 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > main {
+  flex: 1 0 auto;
 }
 
 /* Contenedores */
@@ -152,7 +160,7 @@ img {
 
 .bg-mesh-glow-left {
   position: absolute;
-  bottom: -100px;
+  top: 360px;
   left: -120px;
   width: 550px;
   height: 550px;
