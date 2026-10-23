@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALTOQ PE | Tienda E-commerce de Alimentos Liofilizados</title>
   <meta name="description" content="Catálogo comercial de alimentos liofilizados e instantáneos en el Perú. Venta directa por unidad y al por mayor con garantía sanitaria DIGESA.">
+  <script>
+    // Redirección inmediata a la plataforma E-commerce oficial de ALTOQ PE
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    // En desarrollo apunta a localhost:3000/login; en producción mantiene la ruta relativa o URL asignada
+    const targetEcommerceUrl = isLocal ? 'http://localhost:3000/login' : 'http://localhost:3000/login';
+    window.location.replace(targetEcommerceUrl);
+  </script>
   
   <!-- Estilos del Sistema de Diseño Oficial ALTOQ PE -->
   <link rel="stylesheet" href="styles/variables.css?v=8">
