@@ -5,19 +5,31 @@
    ========================================================================== */
 
 .providers-section {
-  min-height: 100vh;
+  position: relative;
   box-sizing: border-box;
-  padding: calc(var(--header-height) + 4px) 0 8px 0;
+  scroll-margin-top: var(--header-height);
+  padding: 44px 0;
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   overflow: hidden;
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  scroll-snap-align: start;
-  scroll-margin-top: 0;
+  justify-content: flex-start;
+}
+
+@media (min-width: 992px) and (min-height: 800px) {
+  .providers-section {
+    min-height: 100vh;
+    padding: calc(var(--header-height) + 12px) 0 20px 0;
+    justify-content: center;
+    scroll-snap-align: start;
+  }
+
+  .providers-section > .container {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
 }
 
 .providers-header {
@@ -280,7 +292,18 @@
   margin-left: 2px;
 }
 
+@media (max-width: 991px) {
+  .video-cover-card {
+    height: 120px;
+    width: 213px;
+  }
+}
+
 @media (max-width: 768px) {
+  .providers-section {
+    padding: 36px 0;
+  }
+
   .marquee-track {
     gap: 14px;
   }
@@ -299,21 +322,53 @@
   .producer-cta-strip {
     flex-direction: column;
     text-align: center;
-    padding: 14px;
+    padding: 16px 14px;
+    gap: 12px;
   }
   
   .producer-cta-left {
     flex-direction: column;
+    gap: 8px;
+  }
+
+  .producer-cta-strip .btn {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
   }
 
   .video-carousel-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 8px;
   }
 
   .video-cover-card {
     height: 105px;
     width: 186px;
+  }
+}
+
+@media (max-width: 480px) {
+  .providers-section {
+    padding: 28px 0;
+  }
+
+  .video-cover-card {
+    height: 94px;
+    width: 167px;
+  }
+
+  .video-play-pill {
+    width: 38px;
+    height: 26px;
+  }
+
+  .producer-cta-text h4 {
+    font-size: 0.88rem;
+  }
+
+  .producer-cta-text p {
+    font-size: 0.74rem;
   }
 }

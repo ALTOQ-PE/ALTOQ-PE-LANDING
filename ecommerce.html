@@ -7,9 +7,9 @@
   <meta name="description" content="Catálogo comercial de alimentos liofilizados e instantáneos en el Perú. Venta directa por unidad y al por mayor con garantía sanitaria DIGESA.">
   
   <!-- Estilos del Sistema de Diseño Oficial ALTOQ PE -->
-  <link rel="stylesheet" href="styles/variables.css">
-  <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/components.css">
+  <link rel="stylesheet" href="styles/variables.css?v=8">
+  <link rel="stylesheet" href="styles/main.css?v=8">
+  <link rel="stylesheet" href="styles/components.css?v=8">
   <style>
     .ecommerce-header {
       padding: calc(var(--header-height) + 24px) 0 20px 0;
@@ -121,8 +121,8 @@
     .cart-drawer {
       position: fixed;
       top: 0;
-      right: -420px;
-      width: 400px;
+      right: 0;
+      width: 380px;
       max-width: 100%;
       height: 100vh;
       background-color: #FFFFFF;
@@ -130,11 +130,12 @@
       z-index: 2000;
       display: flex;
       flex-direction: column;
-      transition: right var(--transition-normal);
+      transform: translateX(105%);
+      transition: transform var(--transition-normal);
       padding: 24px;
     }
     .cart-drawer.open {
-      right: 0;
+      transform: translateX(0);
     }
     .cart-overlay {
       position: fixed;
@@ -158,6 +159,46 @@
       padding: 2px 7px;
       margin-left: 6px;
     }
+
+    /* Estilos responsivos de la tienda */
+    @media (max-width: 991px) {
+      .ecommerce-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+      }
+      .ecommerce-hero-grid p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .ecommerce-fili-badge {
+        width: 110px;
+      }
+      .filter-tabs {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .filter-tabs {
+        gap: 6px;
+      }
+      .filter-tab-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+      .ecommerce-header h1 {
+        font-size: 1.6rem !important;
+      }
+      .cart-drawer {
+        width: 100%;
+        padding: 20px 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -178,7 +219,7 @@
       </a>
 
       <nav aria-label="Navegación Secundaria">
-        <ul class="nav-menu">
+        <ul class="nav-menu" id="navMenu">
           <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
           <li><a href="index.html#mision-vision" class="nav-link">Misión y Visión</a></li>
           <li><a href="index.html#proveedores" class="nav-link">Proveedores</a></li>
@@ -191,6 +232,13 @@
         <button type="button" class="btn btn-primary" id="openCartBtn">
           <span>Mi Carrito</span>
           <span class="cart-badge" id="cartCountBadge">0</span>
+        </button>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Abrir Menú de Navegación">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
         </button>
       </div>
     </div>
@@ -522,6 +570,22 @@
         });
       });
     });
+
+    // Control de menu movil en la tienda
+    const mobileToggle = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (mobileToggle && navMenu) {
+      mobileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('open');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+          navMenu.classList.remove('open');
+        }
+      });
+    }
   </script>
 </body>
 </html>

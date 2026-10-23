@@ -6,7 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const headerNav = document.getElementById('headerNav');
-  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileToggle = document.getElementById('mobileMenuToggle') || document.getElementById('mobileToggle');
   const navMenu = document.getElementById('navMenu');
   const contactForm = document.getElementById('contactForm');
   const toast = document.getElementById('feedbackToast');
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Control de scroll en cabecera
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
+    if (window.scrollY > 30) {
       headerNav.classList.add('scrolled');
     } else {
       headerNav.classList.remove('scrolled');
@@ -23,19 +23,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Alternancia de menú móvil
   if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       navMenu.classList.toggle('open');
+      const isExpanded = navMenu.classList.contains('open');
+      mobileToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
     });
 
     // Cerrar al hacer clic en cualquier enlace
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
       });
+    });
+
+    // Cerrar si se hace clic fuera del menú
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+        navMenu.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Cerrar si la pantalla se agranda a desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 991 && navMenu.classList.contains('open')) {
+        navMenu.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
-  // Desplazamiento suave exacto a cada sección en encuadre
+  // Desplazamiento suave exacto a cada sección con compensación de cabecera fija
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -45,8 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (targetElement) {
         e.preventDefault();
         
+        const headerHeight = headerNav ? headerNav.offsetHeight : 70;
+        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight;
+
         window.scrollTo({
-          top: targetElement.offsetTop,
+          top: offsetPosition > 0 ? offsetPosition : 0,
           behavior: 'smooth'
         });
 
