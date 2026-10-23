@@ -456,17 +456,18 @@
 /* Seccion Suscripcion en Encuadre */
 .plans-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
   align-items: stretch;
-  margin-bottom: 0;
+  max-width: 860px;
+  margin: 0 auto;
 }
 
 .plan-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 22px;
+  padding: 16px 20px;
   border-radius: var(--radius-lg);
   background-color: var(--color-surface);
   border: 2px solid var(--color-border);
@@ -502,14 +503,14 @@
 .plan-target {
   font-size: 0.8rem;
   color: var(--color-text-muted);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   line-height: 1.35;
   min-height: 32px;
 }
 
 .plan-price-wrapper {
-  margin-bottom: 12px;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -534,19 +535,19 @@
 
 .plan-features-list {
   list-style: none;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 5px;
 }
 
 .plan-feature-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
+  gap: 7px;
+  font-size: 0.78rem;
   color: var(--color-text-main);
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .feature-check-svg {
