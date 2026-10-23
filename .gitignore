@@ -1,0 +1,15 @@
+# Archivos de Sistema Operativo
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Archivos temporales y de registro
+*.tmp
+*.log
+
+# Configuraciones de editores locales
+.vscode/
+.idea/
+*.sublime-workspace

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALTOQ PE | Tienda E-commerce de Alimentos Liofilizados</title>
+  <meta name="description" content="Catálogo comercial de alimentos liofilizados e instantáneos en el Perú. Venta directa por unidad y al por mayor con garantía sanitaria DIGESA.">
+  
+  <!-- Estilos del Sistema de Diseño Oficial ALTOQ PE -->
+  <link rel="stylesheet" href="styles/variables.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/components.css">
+  <style>
+    .ecommerce-header {
+      padding: calc(var(--header-height) + 24px) 0 20px 0;
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .ecommerce-hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .ecommerce-fili-badge {
+      width: 140px;
+      height: auto;
+      filter: drop-shadow(0 8px 16px rgba(15, 61, 46, 0.15));
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 28px 0 20px 0;
+    }
+    .filter-tab-btn {
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+      font-family: var(--font-family-base);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .filter-tab-btn.active, .filter-tab-btn:hover {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      border-color: var(--color-primary);
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+    .product-card {
+      background-color: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-secondary);
+    }
+    .product-img-wrapper {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-bg);
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+      overflow: hidden;
+      padding: 10px;
+    }
+    .product-img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .product-category {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .product-title {
+      font-size: 1.15rem;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+    .product-weight {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      margin-bottom: 14px;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--color-border);
+      padding-top: 12px;
+      margin-top: 8px;
+    }
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      max-width: 100%;
+      height: 100vh;
+      background-color: #FFFFFF;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.2);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      transition: right var(--transition-normal);
+      padding: 24px;
+    }
+    .cart-drawer.open {
+      right: 0;
+    }
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1999;
+      display: none;
+    }
+    .cart-overlay.open {
+      display: block;
+    }
+    .cart-badge {
+      background-color: var(--color-accent);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 800;
+      border-radius: var(--radius-full);
+      padding: 2px 7px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Navegación Superior -->
+  <header class="header-nav" id="headerNav">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-link" aria-label="ALTOQ PE - Página Principal">
+        <svg width="190" height="42" viewBox="0 0 250 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 6L4 50H16L24 32H38L46 50H58L38 6H24Z" fill="#0F3D2E"/>
+          <path d="M1 42C12 36 28 28 48 30C36 38 20 44 1 42Z" fill="#8BAA52"/>
+          <path d="M5 40C20 35 34 31 46 31" stroke="#F6F3EB" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="34" cy="42" r="5" fill="#D85A2F"/>
+          <text x="68" y="32" font-family="'Plus Jakarta Sans', sans-serif" font-size="28" font-weight="800" fill="#0F3D2E">ALTOQ</text>
+          <text x="178" y="32" font-family="'Plus Jakarta Sans', sans-serif" font-size="28" font-weight="800" fill="#8BAA52">PE</text>
+          <text x="70" y="48" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="700" letter-spacing="3.8" fill="#52635B">FOOD TECHNOLOGY</text>
+        </svg>
+      </a>
+
+      <nav aria-label="Navegación Secundaria">
+        <ul class="nav-menu">
+          <li><a href="index.html#inicio" class="nav-link">Inicio</a></li>
+          <li><a href="index.html#mision-vision" class="nav-link">Misión y Visión</a></li>
+          <li><a href="index.html#proveedores" class="nav-link">Proveedores</a></li>
+          <li><a href="index.html#suscripcion" class="nav-link">Suscripción</a></li>
+          <li><a href="index.html#contacto" class="nav-link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button type="button" class="btn btn-primary" id="openCartBtn">
+          <span>Mi Carrito</span>
+          <span class="cart-badge" id="cartCountBadge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Encabezado de la Tienda -->
+  <section class="ecommerce-header">
+    <div class="container">
+      <div class="ecommerce-hero-grid">
+        <div>
+          <span class="section-tag">Catálogo Digital Especializado</span>
+          <h1 style="font-size: 2.2rem; margin: 8px 0 10px 0;">Tienda Oficial de Alimentos Liofilizados</h1>
+          <p style="font-size: 1rem; color: var(--color-text-muted); max-width: 620px;">
+            Descubre la oferta consolidada de superalimentos y comidas instantáneas peruanas con garantía sanitaria DIGESA y despacho protegido a Lima Metropolitana.
+          </p>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <img src="assets/fili/fili-carrito.png" alt="Fili empujando carrito de compras ALTOQ PE" class="ecommerce-fili-badge animate-float">
+        </div>
+      </div>
+
+      <!-- Filtros de Categorías -->
+      <div class="filter-tabs">
+        <button class="filter-tab-btn active" data-filter="todos">Todos los Productos</button>
+        <button class="filter-tab-btn" data-filter="frutas">Frutas Liofilizadas</button>
+        <button class="filter-tab-btn" data-filter="verduras">Verduras y Snacks</button>
+        <button class="filter-tab-btn" data-filter="extractos">Extractos y Superalimentos</button>
+        <button class="filter-tab-btn" data-filter="packs">Packs y Cajas</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuadrícula de Productos -->
+  <main class="container" style="padding-top: 36px;">
+    <div class="products-grid" id="productsGrid">
+      
+      <!-- Producto 1: Mango Liofilizado -->
+      <div class="product-card" data-category="frutas">
+        <div>
+          <div class="product-img-wrapper">
+            <img src="assets/products/pouches-pack.png" alt="Mango Liofilizado" class="product-img">
+          </div>
+          <span class="product-category">Frutas Liofilizadas</span>
+          <h3 class="product-title">Mango Kent Liofilizado</h3>
+          <p class="product-weight">Empaque trilaminado de 40g (Equivalente a 400g fresco)</p>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">S/ 14.50</div>
+          <button type="button" class="btn btn-secondary" style="padding: 7px 14px; font-size: 0.85rem;" onclick="addToCart('Mango Kent Liofilizado 40g', 14.50)">
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Producto 2: Fresa Liofilizada -->
+      <div class="product-card" data-category="frutas">
+        <div>
+          <div class="product-img-wrapper">
+            <img src="assets/products/pouches-pack.png" alt="Fresa Liofilizada" class="product-img">
+          </div>
+          <span class="product-category">Frutas Liofilizadas</span>
+          <h3 class="product-title">Fresa Entera Liofilizada</h3>
+          <p class="product-weight">Empaque trilaminado de 35g (Textura crocante 100% natural)</p>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">S/ 15.00</div>
+          <button type="button" class="btn btn-secondary" style="padding: 7px 14px; font-size: 0.85rem;" onclick="addToCart('Fresa Entera Liofilizada 35g', 15.00)">
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Producto 3: Piña Liofilizada -->
+      <div class="product-card" data-category="frutas">
+        <div>
+          <div class="product-img-wrapper">
+            <img src="assets/products/pouches-pack.png" alt="Piña Golden Liofilizada" class="product-img">
+          </div>
+          <span class="product-category">Frutas Liofilizadas</span>
+          <h3 class="product-title">Piña Golden en Cubos</h3>
+          <p class="product-weight">Empaque trilaminado de 40g (Sin azúcar añadida)</p>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">S/ 13.90</div>
+          <button type="button" class="btn btn-secondary" style="padding: 7px 14px; font-size: 0.85rem;" onclick="addToCart('Piña Golden Liofilizada 40g', 13.90)">
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Producto 4: Mix de Verduras Liofilizadas -->
+      <div class="product-card" data-category="verduras">
+        <div>
+          <div class="product-img-wrapper">
+            <img src="assets/products/pouches-pack.png" alt="Mix de Verduras Liofilizadas" class="product-img">
+          </div>
+          <span class="product-category">Verduras y Snacks</span>
+          <h3 class="product-title">Mix Huerto Crujiente</h3>
+          <p class="product-weight">Brócoli, zanahoria, choclo y arvejas liofilizadas de 50g</p>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">S/ 16.50</div>
+          <button type="button" class="btn btn-secondary" style="padding: 7px 14px; font-size: 0.85rem;" onclick="addToCart('Mix Huerto Crujiente 50g', 16.50)">
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Producto 5: Aguaymanto Liofilizado -->
+      <div class="product-card" data-category="extractos">
+        <div>
+          <div class="product-img-wrapper">
+            <img src="assets/products/bowls-freeze-dried.png" alt="Aguaymanto Andino Liofilizado" class="product-img">
+          </div>
+          <span class="product-category">Extractos y Superalimentos</span>
+          <h3 class="product-title">Aguaymanto Andino Puro</h3>
+          <p class="product-weight">Empaque sellado de 45g rico en vitamina C y antioxidantes</p>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">S/ 17.00</div>
+          <button type="button" class="btn btn-secondary" style="padding: 7px 14px; font-size: 0.85rem;" onclick="addToCart('Aguaymanto Andino 45g', 17.00)">
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Producto 6: Caja Surtida Degustación -->
+      <div class="product-card" data-category="packs">
+        <div>
+          <div class="product-img-wrapper">
+            <img src="assets/products/box-delivery.png" alt="Caja Pack Degustación ALTOQ PE" class="product-img">
+          </div>
+          <span class="product-category">Packs y Cajas</span>
+          <h3 class="product-title">Box Degustación Experiencia</h3>
+          <p class="product-weight">Caja rígida de acopio seco con 6 variedades selectas</p>
+        </div>
+        <div class="product-footer">
+          <div class="product-price">S/ 79.00</div>
+          <button type="button" class="btn btn-primary" style="padding: 7px 14px; font-size: 0.85rem;" onclick="addToCart('Box Degustación 6 Unidades', 79.00)">
+            <span>Agregar</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Panel Lateral / Carrito de Compras -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Carrito de compras">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 14px; margin-bottom: 20px;">
+      <h3 style="font-size: 1.25rem;">Tu Carrito de Pedido</h3>
+      <button type="button" id="closeCartBtn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--color-primary);">&times;</button>
+    </div>
+
+    <div id="cartItemsList" style="flex: 1; overflow-y: auto;">
+      <p style="color: var(--color-text-muted); font-size: 0.95rem; text-align: center; margin-top: 40px;">
+        Tu carrito está vacío. Agrega productos del catálogo para coordinar tu despacho.
+      </p>
+    </div>
+
+    <div style="border-top: 1px solid var(--color-border); padding-top: 16px; margin-top: 16px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 16px; font-weight: 700; font-size: 1.15rem;">
+        <span>Total Estimado:</span>
+        <span id="cartTotalPrice">S/ 0.00</span>
+      </div>
+      <button type="button" class="btn btn-whatsapp" style="width: 100%;" onclick="checkoutViaWhatsApp()">
+        <span>Coordinar Despacho por WhatsApp</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Notificación Toast -->
+  <div class="toast-feedback" id="feedbackToast" role="alert">
+    <img src="assets/fili/fili-pulgar-arriba.png" alt="Fili confirmando" class="toast-fili-img">
+    <span id="toastMessage">Producto agregado al carrito.</span>
+  </div>
+
+  <footer class="footer-main" style="padding: 40px 0 24px 0; margin-top: 40px;">
+    <div class="container text-center">
+      <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem;">
+        &copy; 2026 ALTOQ PE Food Technology. Todos los pedidos cuentan con Registro Sanitario DIGESA.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const cart = [];
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const openCartBtn = document.getElementById('openCartBtn');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartItemsList = document.getElementById('cartItemsList');
+    const cartTotalPrice = document.getElementById('cartTotalPrice');
+    const cartCountBadge = document.getElementById('cartCountBadge');
+    const toast = document.getElementById('feedbackToast');
+    const toastMsg = document.getElementById('toastMessage');
+
+    function toggleCart(open) {
+      if (open) {
+        cartDrawer.classList.add('open');
+        cartOverlay.classList.add('open');
+      } else {
+        cartDrawer.classList.remove('open');
+        cartOverlay.classList.remove('open');
+      }
+    }
+
+    if (openCartBtn) openCartBtn.addEventListener('click', () => toggleCart(true));
+    if (closeCartBtn) closeCartBtn.addEventListener('click', () => toggleCart(false));
+    if (cartOverlay) cartOverlay.addEventListener('click', () => toggleCart(false));
+
+    function addToCart(title, price) {
+      const existing = cart.find(item => item.title === title);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ title, price, qty: 1 });
+      }
+      renderCart();
+      showToast(`${title} agregado al carrito.`);
+    }
+
+    function renderCart() {
+      const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartCountBadge.textContent = totalCount;
+
+      if (cart.length === 0) {
+        cartItemsList.innerHTML = '<p style="color: var(--color-text-muted); font-size: 0.95rem; text-align: center; margin-top: 40px;">Tu carrito está vacío.</p>';
+        cartTotalPrice.textContent = 'S/ 0.00';
+        return;
+      }
+
+      let total = 0;
+      let html = '';
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        html += `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--color-border);">
+            <div>
+              <div style="font-weight: 700; font-size: 0.92rem; color: var(--color-primary);">${item.title}</div>
+              <div style="font-size: 0.8rem; color: var(--color-text-muted);">S/ ${item.price.toFixed(2)} x ${item.qty}</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 700;">S/ ${itemTotal.toFixed(2)}</span>
+              <button onclick="removeItem(${index})" style="background: none; border: none; color: var(--color-accent); cursor: pointer; font-size: 0.85rem; font-weight: 700;">Quitar</button>
+            </div>
+          </div>
+        `;
+      });
+
+      cartItemsList.innerHTML = html;
+      cartTotalPrice.textContent = `S/ ${total.toFixed(2)}`;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function showToast(msg) {
+      if (toast && toastMsg) {
+        toastMsg.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+    }
+
+    function checkoutViaWhatsApp() {
+      if (cart.length === 0) {
+        alert('Agrega al menos un producto al carrito antes de coordinar el pedido.');
+        return;
+      }
+      let summary = 'Hola equipo de ALTOQ PE. Deseo realizar el siguiente pedido desde el catálogo web:\n';
+      let total = 0;
+      cart.forEach(item => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        summary += `- ${item.qty}x ${item.title} (S/ ${itemTotal.toFixed(2)})\n`;
+      });
+      summary += `\nTotal estimado: S/ ${total.toFixed(2)}\n¿Podrían confirmarme tiempos de despacho y métodos de pago?`;
+      window.open('https://wa.me/51940049923?text=' + encodeURIComponent(summary), '_blank');
+    }
+
+    // Filtros de categoria
+    document.querySelectorAll('.filter-tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.getAttribute('data-filter');
+        document.querySelectorAll('.product-card').forEach(card => {
+          if (filter === 'todos' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
