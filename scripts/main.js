@@ -122,6 +122,8 @@ function openWhatsAppChat(tipo) {
     message = 'Hola equipo de ALTOQ PE. Soy productor de alimentos y deseo postular al catálogo comercial.';
   } else if (tipo === 'b2b') {
     message = 'Hola equipo de ALTOQ PE. Represento a una empresa/cafetería y requiero cotización al por mayor.';
+  } else if (tipo === 'capacitacion') {
+    message = 'Hola equipo de ALTOQ PE. Deseo información y acceso a los módulos de capacitación y alfabetización digital para productores.';
   }
 
   const encoded = encodeURIComponent(message);
