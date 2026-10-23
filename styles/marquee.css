@@ -7,7 +7,7 @@
 .providers-section {
   min-height: 100vh;
   box-sizing: border-box;
-  padding: calc(var(--header-height) + 12px) 0 16px 0;
+  padding: calc(var(--header-height) + 8px) 0 14px 0;
   background-color: var(--color-surface);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
@@ -22,11 +22,11 @@
 
 .providers-header {
   text-align: center;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .providers-subtitle {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--color-text-muted);
   text-transform: uppercase;
@@ -48,7 +48,7 @@
 .marquee-track {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   width: max-content;
   animation: marqueeScroll 32s linear infinite;
 }
@@ -75,9 +75,9 @@
   background-color: var(--color-bg);
   border: 1px solid rgba(15, 61, 46, 0.08);
   border-radius: var(--radius-md);
-  padding: 8px 18px;
-  height: 58px;
-  min-width: 135px;
+  padding: 6px 16px;
+  height: 52px;
+  min-width: 125px;
   transition: all var(--transition-fast);
 }
 
@@ -89,8 +89,8 @@
 }
 
 .provider-logo-img {
-  max-height: 36px;
-  max-width: 105px;
+  max-height: 32px;
+  max-width: 95px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -105,12 +105,12 @@
 
 /* Banner inferior de invitacion B2B para Productores */
 .producer-cta-strip {
-  margin-top: 14px;
-  margin-bottom: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   background: linear-gradient(135deg, rgba(139, 170, 82, 0.12), rgba(15, 61, 46, 0.06));
   border: 1px solid rgba(139, 170, 82, 0.3);
   border-radius: var(--radius-lg);
-  padding: 12px 24px;
+  padding: 10px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -124,20 +124,20 @@
 }
 
 .producer-fili-avatar {
-  width: 48px;
+  width: 44px;
   height: auto;
   flex-shrink: 0;
   filter: drop-shadow(0 4px 8px rgba(15, 61, 46, 0.15));
 }
 
 .producer-cta-text h4 {
-  font-size: 0.98rem;
+  font-size: 0.94rem;
   color: var(--color-primary);
   margin-bottom: 2px;
 }
 
 .producer-cta-text p {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   color: var(--color-text-muted);
 }
 
@@ -147,14 +147,14 @@
 }
 
 .marquee-videos-wrapper .marquee-track {
-  gap: 18px;
+  gap: 16px;
   animation: marqueeScroll 36s linear infinite;
 }
 
 .video-cover-card {
   position: relative;
-  height: 104px;
-  width: 185px;
+  height: 96px;
+  width: 170px;
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(15, 61, 46, 0.12);
